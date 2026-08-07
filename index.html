@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Instrumen Penilaian dan Pemarkahan KPR3072 Perantis Guru</title>
+<style>
+  :root {
+    --hijau-tua: #3d7a3d;
+    --hijau: #5a9c3f;
+    --hijau-muda: #eaf3e3;
+    --kuning: #fbf6d9;
+    --border: #c9ddb8;
+    --teks: #23291f;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: #f4f6f1;
+    color: var(--teks);
+    margin: 0;
+    padding: 0;
+  }
+  header {
+    background: linear-gradient(135deg, var(--hijau-tua), var(--hijau));
+    color: #fff;
+    padding: 24px 32px;
+  }
+  header h1 { margin: 0 0 4px 0; font-size: 22px; }
+  header p { margin: 0; opacity: .9; font-size: 13px; }
+  .container { max-width: 1000px; margin: 0 auto; padding: 20px; }
+  .card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 18px 20px;
+    margin-bottom: 18px;
+  }
+  .card h2 {
+    font-size: 16px;
+    color: var(--hijau-tua);
+    border-bottom: 2px solid var(--hijau-muda);
+    padding-bottom: 8px;
+    margin-top: 0;
+  }
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px 20px;
+  }
+  .info-grid label { font-size: 13px; font-weight: 600; display: block; margin-bottom: 3px; }
+  .info-grid input {
+    width: 100%;
+    padding: 6px 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 13px;
+  }
+  .upload-box {
+    border: 2px dashed var(--hijau);
+    border-radius: 8px;
+    padding: 18px;
+    text-align: center;
+    background: var(--hijau-muda);
+    margin-bottom: 10px;
+    cursor: pointer;
+  }
+  .upload-box input[type=file] { display: none; }
+  .file-list { font-size: 13px; margin-top: 8px; text-align: left; }
+  .file-list div { padding: 3px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 6px; }
+  th, td { border: 1px solid var(--border); padding: 6px 8px; text-align: left; vertical-align: top; }
+  th { background: var(--hijau); color: #fff; font-size: 12px; }
+  .komponen-title {
+    background: var(--hijau-tua);
+    color: #fff;
+    padding: 6px 10px;
+    font-weight: 600;
+    font-size: 13px;
+    border-radius: 4px 4px 0 0;
+    margin-top: 14px;
+  }
+  .item-row { display: flex; align-items: center; justify-content: space-between; padding: 5px 0; border-bottom: 1px dashed #ddd; }
+  .item-row:last-child { border-bottom: none; }
+  .item-label { font-size: 13px; flex: 1; }
+  .scale-btns { display: flex; gap: 4px; }
+  .scale-btns button {
+    border: 1px solid #c0392b;
+    background: #e74c3c;
+    color: #fff;
+    padding: 3px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+  }
+  .scale-btns button.active { background: var(--hijau); color: #fff; border-color: var(--hijau-tua); }
+  .scale-btns.dipilih button:not(.active) { background: #fff; color: #333; border-color: #bbb; }
+  .jumlah-row { background: var(--kuning); font-weight: 600; padding: 6px 10px; font-size: 13px; display: flex; justify-content: space-between; margin-top: 4px; border-radius: 4px; }
+  .komponen-markah { background: var(--hijau-muda); font-weight: 700; padding: 8px 10px; font-size: 13px; display: flex; justify-content: space-between; border-radius: 0 0 6px 6px; border: 1px solid var(--border); border-top: none; }
+  .minggu-header { background: #2f5c2f; color: #fff; padding: 8px 12px; font-weight: 700; font-size: 14px; border-radius: 6px; margin: 20px 0 6px 0; }
+  .keseluruhan-minggu { background: #fff7cc; border: 1px solid #e0d27a; padding: 8px 12px; font-weight: 700; margin-top: 8px; border-radius: 4px; text-align: right; }
+  textarea { width: 100%; min-height: 60px; padding: 6px; border: 1px solid #ccc; border-radius: 4px; font-family: inherit; font-size: 13px; }
+  .rumusan-table th, .rumusan-table td { font-size: 13px; }
+  .rumusan-table td.markah { font-weight: 700; text-align: center; background: var(--hijau-muda); }
+  .grand-total { background: var(--hijau-tua); color: #fff; font-size: 18px; padding: 14px 18px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; margin-top: 12px; }
+  .grand-total .gred { font-size: 26px; font-weight: 800; }
+  .btn-row { display: flex; gap: 10px; margin: 20px 0; flex-wrap: wrap; }
+  .btn {
+    background: var(--hijau-tua);
+    color: #fff;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  .btn.secondary { background: #6c757d; }
+  .btn:hover { opacity: .9; }
+  .checklist-status { font-weight: 700; }
+  .status-ada { color: #2b7a2b; }
+  .status-tiada { color: #b03030; }
+  @media print {
+    .no-print { display: none !important; }
+    .card { break-inside: avoid; border: 1px solid #999; }
+  }
+  .subtle { font-size: 12px; color: #666; margin-top: 2px; }
+  .autofill-status { font-size: 13px; margin-top: 8px; padding: 8px 10px; border-radius: 6px; display: none; }
+  .autofill-status.loading { display: block; background: #fff7cc; color: #6b5b00; }
+  .autofill-status.success { display: block; background: #e3f3e3; color: #1f5c1f; }
+  .autofill-status.warning { display: block; background: #fdecea; color: #a33; }
+  .autofill-field-tag { display: inline-block; background: #dcefc9; color: #2b5c1f; font-size: 11px; padding: 1px 6px; border-radius: 3px; margin-left: 6px; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Instrumen Penilaian dan Pemarkahan KPR3072 Perantis Guru</h1>
+  <p>Universiti Pendidikan Sultan Idris — Jabatan Pengajian Pendidikan, Fakulti Pembangunan Manusia (mengikut instrumen rasmi 2025)</p>
+</header>
+
+<div class="container">
+
+  <!-- MAKLUMAT INSTRUMEN -->
+  <div class="card">
+    <h2>Maklumat Instrumen Berasaskan Web</h2>
+    <p style="font-size:13px;line-height:1.6;margin:0">Instrumen ini dibangunkan oleh Shahrul Kadri Ayop dan Izan Roshawaty Mustapa dari Jabatan Fizik, FSM UPSI berdasarkan Instrumen Penilaian dan Pemarkahan KPR3072.</p>
+  </div>
+
+  <!-- MAKLUMAT PELAJAR -->
+  <div class="card">
+    <h2>Maklumat Guru Perantis</h2>
+    <div class="info-grid">
+      <div><label>Nama Guru Perantis</label><input id="nama" type="text"></div>
+      <div><label>No. Kad Pengenalan</label><input id="ic" type="text"></div>
+      <div><label>No. Matrik</label><input id="matrik" type="text"></div>
+      <div><label>Program Pengajian</label><input id="program" type="text"></div>
+      <div><label>Kod Program</label><input id="kodProgram" type="text"></div>
+      <div><label>Tarikh Perantis Guru</label><input id="tarikh" type="date"></div>
+      <div><label>Nama Pensyarah Penyelia</label><input id="penyelia" type="text"></div>
+      <div><label>Nama Guru Pembimbing</label><input id="guruPembimbing" type="text"></div>
+    </div>
+  </div>
+
+  <!-- SENARAI SEMAK KELENGKAPAN -->
+  <div class="card">
+    <h2 style="text-transform:uppercase">1. Senarai Semak Kelengkapan Portfolio</h2>
+    <table>
+      <tbody id="checklistBody"></tbody>
+    </table>
+  </div>
+
+  <!-- KOMPONEN PEMARKAHAN -->
+  <div id="komponenContainer"></div>
+
+  <!-- RUMUSAN -->
+  <div class="card">
+    <h2>Rumusan Markah Keseluruhan</h2>
+    <table class="rumusan-table">
+      <thead><tr><th>CLO</th><th>Tugasan</th><th>Peratusan</th><th>Markah</th></tr></thead>
+      <tbody id="rumusanBody"></tbody>
+    </table>
+    <div class="grand-total">
+      <div>JUMLAH KESELURUHAN (/100)<br><span id="jumlahBesar" style="font-size:22px">0.00</span></div>
+      <div>GRED<br><span class="gred" id="gredAkhir">-</span></div>
+    </div>
+    <p class="subtle" id="statusLulus"></p>
+  </div>
+
+  <div class="card">
+    <h2>Ulasan Keseluruhan Pensyarah Penyelia</h2>
+    <textarea id="ulasanAkhir" placeholder="Tulis ulasan keseluruhan di sini..."></textarea>
+    <div class="info-grid" style="margin-top:12px">
+      <div><label>Tandatangan (Nama)</label><input id="ttdNama" type="text"></div>
+      <div><label>Jabatan</label><input id="ttdJabatan" type="text"></div>
+    </div>
+  </div>
+
+  <div class="btn-row no-print">
+    <button class="btn" onclick="window.print()">🖨️ Cetak / Simpan sebagai PDF</button>
+    <button class="btn secondary" onclick="simpanData()">💾 Simpan Data (fail .json)</button>
+    <button class="btn secondary" onclick="document.getElementById('loadInput').click()">📂 Muat Semula Data</button>
+    <input type="file" id="loadInput" accept=".json" style="display:none" onchange="muatData(event)">
+  </div>
+
+</div>
+
+<script>
+// ====================== DATA STRUKTUR MENGIKUT INSTRUMEN RASMI KPR3072 ======================
+
+// Bahagian 1: Maklumat Pelajar (penomboran item bermula semula pada 1)
+const checklistMaklumatPelajar = {
+  group: "1. Maklumat Pelajar",
+  items: ["Maklumat Guru Perantis"]
+};
+
+// Bahagian 2: Tugasan — setiap tugasan (A-I) ada penomboran item bermula semula pada 1
+const checklistTugasan = [
+  { minggu: "1\nCLO1", tugasan: "A. Laporan Institusi", items: ["Maklumat Organisasi/Institusi/Sekolah", "Pengurusan Organisasi"] },
+  { minggu: "", tugasan: "B. Refleksi", items: ["Penulisan Refleksi"] },
+  { minggu: "2\nCLO2", tugasan: "C. Laporan Pemerhatian", items: ["Laporan Pemerhatian PdPc Guru Pembimbing", "Cadangan Penambahbaikan"] },
+  { minggu: "", tugasan: "D. Penulisan RPH Bersama", items: ["RPH (PdPc Bersama)"] },
+  { minggu: "", tugasan: "E. Penulisan RPH Individu", items: ["RPH (PdPc Individu)"] },
+  { minggu: "3\nCLO3", tugasan: "F. Pengajaran Bersama", items: ["Penulisan Refleksi", "Rekod Perbincangan dengan Guru Pembimbing"] },
+  { minggu: "", tugasan: "G. Pengajaran Individu", items: ["Penulisan Refleksi", "Rekod Perbincangan dengan Guru Pembimbing"] },
+  { minggu: "", tugasan: "H. Penilaian GP", items: ["Penilaian Guru Pembimbing"] },
+  { minggu: "1 – 4\nCLO4", tugasan: "I. Aktiviti Pengurusan dan Kokurikulum", items: ["Laporan Penglibatan"] }
+];
+
+// Bahagian 3: Kehadiran (penomboran item bermula semula pada 1)
+const checklistKehadiran = {
+  group: "3. Kehadiran",
+  items: ["Rekod Kehadiran Guru Perantis"]
+};
+
+// Setiap komponen: id, tajuk, peratusan max, minggu, dan senarai bahagian markah
+// jenis: 'binari' (1/0), 'binari2' (2/0), 'skala3' (2/1/0), 'skala5' (5/4/3)
+const komponenData = [
+  {
+    id: "A", minggu: 1, clo: "CLO1", tajuk: "A: LAPORAN INSTITUSI (5%)", maxMarkah: 5,
+    formula: "(A1 + A2) ÷ 7",
+    bahagian: [
+      {
+        id: "A1", tajuk: "1. Maklumat Organisasi/Institusi/Sekolah", jenis: "binari", maxJumlah: 25,
+        items: ["Nama Sekolah","Alamat Sekolah","No. Tel. Sekolah","Alamat e-mel/web sekolah","Lokasi","Visi Sekolah","Misi Sekolah","Logo Sekolah","Gred Sekolah","Jenis Sekolah","Nama Pengetua","Nama GPK1","Nama GPK HEM","Nama GPK Kokurikulum","Nama Penyelia Petang","Bilangan Guru","Bilangan Guru Cemerlang","Kelayakan Profesional Guru","Bilangan Pembantu Murid","Bilangan Staf Sokongan","Bilangan Kelas","Purata Saiz Kelas","Jumlah Murid","Prasarana","Sejarah Sekolah"]
+      },
+      {
+        id: "A2", tajuk: "2. Pengurusan Organisasi (pilih satu: Pentadbiran Kurikulum atau Panitia Mata Pelajaran)", jenis: "binari", maxJumlah: 10,
+        items: ["Organisasi Kurikulum / Nama Panitia","Jawatankuasa Kurikulum / Ahli Panitia","Pakej Mata Pelajaran / Mesyuarat Panitia","Masa Pengajaran dan Penjadualan / Takwim dan Aktiviti Panitia","Sumber Pengajaran / Peruntukan Kewangan","Pentaksiran Berasaskan Sekolah / Rancangan Pengajaran Tahunan","Kepakaran Guru / Standard Penulisan RPH Sekolah","Kursus dan Latihan Mata Pelajaran / Penilaian Berasaskan Sekolah","LADAP / Sumber Pengajaran dan BBM","Penyeliaan dan Pencerapan / Pelaporan Panitia"]
+      }
+    ]
+  },
+  {
+    id: "B", minggu: 1, clo: "CLO1", tajuk: "B: REFLEKSI (10%)", maxMarkah: 10,
+    formula: "(B1 + B2 + B3) ÷ 3",
+    bahagian: [
+      { id: "B1", tajuk: "1. Persekitaran dan Budaya Sekolah", jenis: "binari", maxJumlah: 5,
+        items: ["Fizikal (cth: reka bentuk bilik darjah)","Psikososial (cth: kondusif, selamat)","Material (cth: pakaian pelajar/guru, majlis/sambutan)","Non-material (cth: adab)","Niche/bidang kebitaraan (cth: teknologi, sukan, keagamaan)"] },
+      { id: "B2", tajuk: "2. Bilik Darjah dan Murid", jenis: "binari", maxJumlah: 5,
+        items: ["Pengurusan bilik darjah","Penggunaan teknologi dalam PdPc","Pentaksiran yang dilaksanakan","Motivasi murid","Rumusan – kaitkan a hingga d dengan Falsafah Pendidikan Kebangsaan"] },
+      { id: "B3", tajuk: "Aspek analitikal dan teknikal", jenis: "skala5", maxJumlah: 20,
+        items: ["Kebolehan analitikal","Kejelasan bahasa","Ketepatan ejaan dan tanda baca","Kekemasan"] }
+    ]
+  },
+  {
+    id: "C", minggu: 2, clo: "CLO2", tajuk: "C: LAPORAN PEMERHATIAN (10%)", maxMarkah: 10,
+    formula: "(C1 + C2 + C3) ÷ 3",
+    bahagian: [
+      { id: "C1", tajuk: "1. Laporan Pemerhatian PdPc GP", jenis: "binari", maxJumlah: 5,
+        items: ["Permulaan pengajaran","Perkembangan pengajaran","Penutup pengajaran","Penerapan kemahiran insaniah","Etika profesionalisme keguruan"] },
+      { id: "C2", tajuk: "2. Cadangan Penambahbaikan", jenis: "binari", maxJumlah: 5,
+        items: ["Refleksi: Aspek yang telah dipelajari","Refleksi: Aspek yang boleh diteladani","Cadangan: Permulaan pengajaran","Cadangan: Perkembangan pengajaran","Cadangan: Penutup pengajaran"] },
+      { id: "C3", tajuk: "Aspek analitikal dan teknikal", jenis: "skala5", maxJumlah: 20,
+        items: ["Kebolehan analitikal","Kejelasan bahasa","Ketepatan ejaan dan tanda baca","Kekemasan"] }
+    ]
+  },
+  {
+    id: "D", minggu: 2, clo: "CLO2", tajuk: "D: PENULISAN RPH BERSAMA (10%)", maxMarkah: 10,
+    formula: "(D1 + D2) ÷ 2",
+    bahagian: [
+      { id: "D1", tajuk: "1. RPH (PdPc Bersama)", jenis: "binari", maxJumlah: 5,
+        items: ["Hasil pembelajaran","Isi pembelajaran","Strategi pengajaran dan pembelajaran","Sumber dan bahan bantu mengajar","Pentaksiran"] },
+      { id: "D2", tajuk: "Aspek teknikal", jenis: "skala5", maxJumlah: 15,
+        items: ["Kejelasan bahasa","Ketepatan ejaan dan tanda baca","Kekemasan"] }
+    ]
+  },
+  {
+    id: "E", minggu: 2, clo: "CLO2", tajuk: "E: PENULISAN RPH INDIVIDU (15%)", maxMarkah: 15,
+    formula: "E1 + E2",
+    bahagian: [
+      { id: "E1", tajuk: "1. RPH (PdPc Individu)", jenis: "binari", maxJumlah: 5,
+        items: ["Hasil pembelajaran","Isi pembelajaran","Strategi pengajaran dan pembelajaran","Sumber dan bahan bantu mengajar","Pentaksiran"] },
+      { id: "E2", tajuk: "Aspek teknikal", jenis: "skala5", maxJumlah: 10,
+        items: ["Kejelasan bahasa","Kekemasan"] }
+    ]
+  },
+  {
+    id: "F", minggu: 3, clo: "CLO3", tajuk: "F: PENGAJARAN BERSAMA (15%)", maxMarkah: 15,
+    formula: "(F1 + F2 + F3) ÷ 2",
+    bahagian: [
+      { id: "F1", tajuk: "1. Rancangan Pengajaran Harian", jenis: "binari2", maxJumlah: 2,
+        items: ["Melampirkan RPH yang telah disediakan pada Minggu 2"] },
+      { id: "F2", tajuk: "2. Penulisan Refleksi", jenis: "skala3", maxJumlah: 8,
+        items: ["Isu/perkara yang difokuskan","Kekuatan Guru Perantis","Kelemahan Guru Perantis","Cadangan penambahbaikan"] },
+      { id: "F3", tajuk: "Aspek analitikal dan teknikal", jenis: "skala5", maxJumlah: 20,
+        items: ["Kebolehan analitikal","Kejelasan bahasa","Ketepatan ejaan dan tanda baca","Kekemasan"] }
+    ]
+  },
+  {
+    id: "G", minggu: 4, clo: "CLO3", tajuk: "G: REFLEKSI PENGAJARAN INDIVIDU (5%)", maxMarkah: 5,
+    formula: "(G1 + G2 + G3) ÷ 6",
+    bahagian: [
+      { id: "G1", tajuk: "1. Rancangan Pengajaran Harian", jenis: "binari2", maxJumlah: 2,
+        items: ["Melampirkan RPH yang telah disediakan pada Minggu 2"] },
+      { id: "G2", tajuk: "2. Penulisan Refleksi", jenis: "skala3", maxJumlah: 8,
+        items: ["Isu/perkara yang difokuskan","Kekuatan Guru Perantis","Kelemahan Guru Perantis","Cadangan penambahbaikan"] },
+      { id: "G3", tajuk: "Aspek analitikal dan teknikal", jenis: "skala5", maxJumlah: 20,
+        items: ["Kebolehan analitikal","Kejelasan bahasa","Ketepatan ejaan dan tanda baca","Kekemasan"] }
+    ]
+  },
+  {
+    id: "H", minggu: 4, clo: "CLO3", tajuk: "H: PENILAIAN GURU PEMBIMBING (20%) — Lampiran 11", maxMarkah: 20,
+    formula: "Markah terus daripada Guru Pembimbing",
+    bahagian: [
+      { id: "H1", tajuk: "Markah Penilaian Guru Pembimbing", jenis: "input-terus", maxJumlah: 20, items: ["Markah Penilaian Guru Pembimbing (/20)"] }
+    ]
+  },
+  {
+    id: "I", minggu: "1–4", clo: "CLO4", tajuk: "I: AKTIVITI PENGURUSAN DAN KOKURIKULUM (10%)", maxMarkah: 10,
+    formula: "Jumlah terus",
+    bahagian: [
+      { id: "I1", tajuk: "1. Aktiviti Pengurusan dan Kokurikulum", jenis: "binari", maxJumlah: 10,
+        items: ["Carta organisasi pengurusan kokurikulum","Tugas dan tanggungjawab","Senarai persatuan dan kelab","Senarai sukan dan permainan","Senarai unit beruniform","Pasukan sekolah (koakademik/sukan)","Kokurikulum – sekurang-kurangnya 3 jam sepanjang tempoh","Kertas kerja","Laporan pelaksanaan","Gambar"] }
+    ]
+  }
+];
+
+// Setiap kumpulan mewakili satu CLO; rows di dalamnya diberi indeks a, b, c... automatik
+const rumusanGroups = [
+  {
+    clo: "CLO1 (15%)",
+    desc: "Menerangkan persekitaran dan budaya institusi pendidikan secara kritikal (C2, PLO1).",
+    rows: [
+      { tugasan: "Laporan Institusi", peratus: 5, komponen: "A" },
+      { tugasan: "Refleksi", peratus: 10, komponen: "B" }
+    ]
+  },
+  {
+    clo: "CLO2 (35%)",
+    desc: "Menganalisis secara kritikal pengajaran yang dijalankan di dalam bilik darjah (C4, PLO2).",
+    rows: [
+      { tugasan: "Laporan Pemerhatian", peratus: 10, komponen: "C" },
+      { tugasan: "Penulisan RPH Bersama", peratus: 10, komponen: "D" },
+      { tugasan: "Penulisan RPH Individu", peratus: 15, komponen: "E" }
+    ]
+  },
+  {
+    clo: "CLO3 (40%)",
+    desc: "Mengaplikasikan pengajaran dan pembelajaran berdasarkan pengetahuan, kemahiran dan pengalaman yang telah dirancang (C3, PLO4).",
+    rows: [
+      { tugasan: "Pengajaran Bersama", peratus: 15, komponen: "F" },
+      { tugasan: "Pengajaran Individu (Penilaian GP)", peratus: 20, komponen: "H" },
+      { tugasan: "Refleksi Pengajaran Individu", peratus: 5, komponen: "G" }
+    ]
+  },
+  {
+    clo: "CLO4 (10%)",
+    desc: "Melaporkan penglibatan diri dalam aktiviti pengurusan dan kokurikulum bersama guru di institusi pendidikan (A3, PLO8).",
+    rows: [
+      { tugasan: "Aktiviti Pengurusan dan Kokurikulum", peratus: 10, komponen: "I" }
+    ]
+  }
+];
+
+// ====================== STATE ======================
+const state = { checklist: {}, skor: {}, catatan: {}, ulasanMinggu: {} };
+
+// ====================== RENDER CHECKLIST ======================
+function checklistSelectCell(key) {
+  return `<td style="text-align:center">
+      <div class="scale-btns" id="btns_${key}" style="justify-content:center">
+        <button data-val="ADA" onclick="setChecklistStatus('${key}','ADA',this)">ADA</button>
+        <button data-val="TIADA" onclick="setChecklistStatus('${key}','TIADA',this)">TIADA</button>
+      </div>
+    </td>`;
+}
+
+function setChecklistStatus(key, val, btn) {
+  state.checklist[key] = val;
+  const container = document.getElementById(`btns_${key}`);
+  [...container.children].forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+  container.classList.add("dipilih");
+}
+
+function renderChecklist() {
+  const tbody = document.getElementById("checklistBody");
+  let html = "";
+
+  // ---- Header umum jadual ----
+  html += `<tr>
+      <th style="background:var(--hijau);color:#fff;font-size:12px;padding:6px 8px" colspan="3">Perkara / Item</th>
+      <th style="background:var(--hijau);color:#fff;font-size:12px;padding:6px 8px">Catatan</th>
+    </tr>`;
+
+  // ---- Bahagian 1: Maklumat Pelajar ----
+  html += `<tr><td colspan="4" style="background:var(--hijau-muda);font-weight:700">${checklistMaklumatPelajar.group}</td></tr>`;
+  checklistMaklumatPelajar.items.forEach((item, ii) => {
+    const key = `chk_mp_${ii}`;
+    html += `<tr><td colspan="3">${ii + 1}. ${item}</td>${checklistSelectCell(key)}</tr>`;
+  });
+
+  // ---- Bahagian 2: Tugasan (jadual bertingkat Minggu / Tugasan / Item, penomboran item bermula 1 setiap tugasan) ----
+  html += `<tr><td colspan="4" style="background:#fff7cc;font-weight:700">2. Tugasan</td></tr>`;
+
+  // Kira rowspan lajur Minggu: merentasi SEMUA baris dalam kumpulan minggu yang sama
+  // (satu kumpulan minggu bermula apabila tg.minggu tidak kosong, sehingga sebelum kumpulan minggu seterusnya)
+  const rowspanMinggu = [];
+  {
+    let mulaIdx = -1;
+    let jumlahBaris = 0;
+    checklistTugasan.forEach((tg, ti) => {
+      if (tg.minggu) {
+        if (mulaIdx !== -1) rowspanMinggu[mulaIdx] = jumlahBaris;
+        mulaIdx = ti;
+        jumlahBaris = 0;
+      }
+      jumlahBaris += tg.items.length;
+    });
+    if (mulaIdx !== -1) rowspanMinggu[mulaIdx] = jumlahBaris;
+  }
+
+  // Build tugasan rows dengan rowspan untuk lajur Minggu & Tugasan
+  let tugasanRowsHtml = "";
+  checklistTugasan.forEach((tg, ti) => {
+    tg.items.forEach((item, ii) => {
+      const key = `chk_tg_${ti}_${ii}`;
+      tugasanRowsHtml += `<tr>`;
+      if (tg.minggu && ii === 0) {
+        tugasanRowsHtml += `<td rowspan="${rowspanMinggu[ti]}">${tg.minggu.replace("\n", "<br><b>")}</b></td>`;
+      }
+      if (ii === 0) {
+        tugasanRowsHtml += `<td rowspan="${tg.items.length}">${tg.tugasan}</td>`;
+      }
+      tugasanRowsHtml += `<td>${ii + 1}. ${item}</td>`;
+      tugasanRowsHtml += checklistSelectCell(key);
+      tugasanRowsHtml += `</tr>`;
+    });
+  });
+
+  html += `<tr>
+      <th style="background:var(--hijau);color:#fff;font-size:12px;padding:6px 8px">Minggu</th>
+      <th style="background:var(--hijau);color:#fff;font-size:12px;padding:6px 8px">Tugasan</th>
+      <th style="background:var(--hijau);color:#fff;font-size:12px;padding:6px 8px">Item</th>
+      <th style="background:var(--hijau);color:#fff;font-size:12px;padding:6px 8px">Catatan</th>
+    </tr>`;
+  html += tugasanRowsHtml;
+
+  // ---- Bahagian 3: Kehadiran ----
+  html += `<tr><td colspan="4" style="background:var(--hijau-muda);font-weight:700">${checklistKehadiran.group}</td></tr>`;
+  checklistKehadiran.items.forEach((item, ii) => {
+    const key = `chk_kh_${ii}`;
+    html += `<tr><td colspan="3">${ii + 1}. ${item}</td>${checklistSelectCell(key)}</tr>`;
+  });
+
+  tbody.innerHTML = html;
+}
+
+// ====================== RENDER KOMPONEN ======================
+// Pulangkan huruf kecil a, b, c... z, kemudian aa, bb... (ikut penomboran instrumen rasmi)
+function abjadKecil(idx) {
+  const huruf = "abcdefghijklmnopqrstuvwxyz";
+  if (idx < 26) return huruf[idx];
+  const kitaran = Math.floor(idx / 26);
+  const baki = idx % 26;
+  return huruf[baki].repeat(kitaran + 1);
+}
+
+function skorButtons(compId, bahagianId, itemIdx, jenis) {
+  let opsi;
+  if (jenis === "binari") opsi = [["1","ADA"],["0","TIADA"]];
+  else if (jenis === "binari2") opsi = [["2","ADA"],["0","TIADA"]];
+  else if (jenis === "skala3") opsi = [["2","ADA>1"],["1","ADA=1"],["0","TIADA"]];
+  else if (jenis === "skala5") opsi = [["5","BAIK"],["4","SEDERHANA"],["3","LEMAH"]];
+  const key = `${compId}_${bahagianId}_${itemIdx}`;
+  return `<div class="scale-btns" id="btns_${key}">` +
+    opsi.map(([val,label]) => `<button data-val="${val}" onclick="setSkor('${compId}','${bahagianId}',${itemIdx},${val},this)">${label} (${val})</button>`).join("") +
+    `</div>`;
+}
+
+function setSkor(compId, bahagianId, itemIdx, val, btn) {
+  const key = `${compId}_${bahagianId}_${itemIdx}`;
+  state.skor[key] = val;
+  const container = document.getElementById(`btns_${key}`);
+  [...container.children].forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+  container.classList.add("dipilih");
+  hitungSemua();
+}
+
+function renderKomponen() {
+  const container = document.getElementById("komponenContainer");
+  let html = "";
+  let currentMinggu = null;
+
+  komponenData.forEach(comp => {
+    if (comp.minggu !== currentMinggu) {
+      currentMinggu = comp.minggu;
+      html += `<div class="minggu-header">TUGASAN MINGGU ${currentMinggu}</div>`;
+    }
+    html += `<div class="card" style="padding-top:10px">`;
+    html += `<div class="komponen-title">${comp.tajuk}</div>`;
+
+    comp.bahagian.forEach(bah => {
+      html += `<div style="margin-top:8px;font-weight:600;font-size:13px">${bah.tajuk}</div>`;
+
+      if (bah.jenis === "input-terus") {
+        html += `<div class="item-row"><span class="item-label">${bah.items[0]}</span>
+          <input type="number" min="0" max="${bah.maxJumlah}" step="0.01" id="input_${comp.id}_${bah.id}_0"
+          style="width:80px;padding:4px" onchange="setInputTerus('${comp.id}','${bah.id}',0,this.value)"></div>`;
+      } else {
+        bah.items.forEach((item, idx) => {
+          html += `<div class="item-row">
+            <span class="item-label">${abjadKecil(idx)}. ${item}</span>
+            ${skorButtons(comp.id, bah.id, idx, bah.jenis)}
+          </div>`;
+        });
+      }
+      html += `<div class="jumlah-row"><span>Jumlah (${bah.id})</span><span id="jumlah_${comp.id}_${bah.id}">0 / ${bah.maxJumlah}</span></div>`;
+    });
+
+    html += `<div class="komponen-markah"><span>MARKAH KOMPONEN ${comp.id}: ${comp.formula}</span><span id="markah_komponen_${comp.id}">0.00 / ${comp.maxMarkah}</span></div>`;
+
+    html += `<div style="margin-top:10px"><label style="font-size:12px;font-weight:600">Komen / Ulasan Komponen ${comp.id}:</label>
+      <textarea id="komen_${comp.id}" style="min-height:40px" onchange="hitungSemua()"></textarea></div>`;
+
+    html += `</div>`;
+  });
+
+  container.innerHTML = html;
+}
+
+function setInputTerus(compId, bahagianId, itemIdx, val) {
+  const key = `${compId}_${bahagianId}_${itemIdx}`;
+  state.skor[key] = val === "" ? null : parseFloat(val);
+  hitungSemua();
+}
+
+// ====================== PENGIRAAN ======================
+function jumlahBahagian(compId, bah) {
+  if (bah.jenis === "input-terus") {
+    const v = state.skor[`${compId}_${bah.id}_0`];
+    return v === undefined || v === null ? 0 : v;
+  }
+  let total = 0;
+  bah.items.forEach((_, idx) => {
+    const v = state.skor[`${compId}_${bah.id}_${idx}`];
+    total += v !== undefined ? parseFloat(v) : 0;
+  });
+  return total;
+}
+
+function markahKomponen(comp) {
+  const jumlahBahagianArr = comp.bahagian.map(b => jumlahBahagian(comp.id, b));
+  const sumAll = jumlahBahagianArr.reduce((a,b) => a+b, 0);
+
+  let markah = 0;
+  switch(comp.id) {
+    case "A": markah = sumAll / 7; break;
+    case "B": markah = sumAll / 3; break;
+    case "C": markah = sumAll / 3; break;
+    case "D": markah = sumAll / 2; break;
+    case "E": markah = sumAll; break;
+    case "F": markah = sumAll / 2; break;
+    case "G": markah = sumAll / 6; break;
+    case "H": markah = jumlahBahagianArr[0]; break;
+    case "I": markah = sumAll; break;
+  }
+  return Math.min(markah, comp.maxMarkah);
+}
+
+function hitungSemua() {
+  const markahByComp = {};
+  komponenData.forEach(comp => {
+    comp.bahagian.forEach(bah => {
+      const j = jumlahBahagian(comp.id, bah);
+      const elJ = document.getElementById(`jumlah_${comp.id}_${bah.id}`);
+      if (elJ) elJ.textContent = `${j} / ${bah.maxJumlah}`;
+    });
+    const mk = markahKomponen(comp);
+    markahByComp[comp.id] = mk;
+    const elM = document.getElementById(`markah_komponen_${comp.id}`);
+    if (elM) elM.textContent = `${mk.toFixed(2)} / ${comp.maxMarkah}`;
+  });
+
+  // Rumusan (dikumpul mengikut CLO, sel Markah CLO digabung/merge)
+  let jumlahBesar = 0;
+  const tbody = document.getElementById("rumusanBody");
+  let html = "";
+  const abjad = ["a","b","c","d","e","f"];
+
+  rumusanGroups.forEach(group => {
+    let jumlahClo = 0;
+    group.rows.forEach(row => {
+      jumlahClo += markahByComp[row.komponen] || 0;
+    });
+    jumlahBesar += jumlahClo;
+
+    group.rows.forEach((row, idx) => {
+      const mk = markahByComp[row.komponen] || 0;
+      html += `<tr>`;
+      if (idx === 0) {
+        html += `<td rowspan="${group.rows.length}"><b>${group.clo}</b><br><span style="font-size:11px;color:#555">${group.desc}</span></td>`;
+      }
+      html += `<td>${abjad[idx]}. ${row.tugasan}</td>
+        <td style="text-align:center">${row.peratus}</td>`;
+      if (idx === 0) {
+        html += `<td class="markah" rowspan="${group.rows.length}" style="vertical-align:middle">${jumlahClo.toFixed(2)}</td>`;
+      }
+      html += `</tr>`;
+    });
+  });
+  tbody.innerHTML = html;
+
+  document.getElementById("jumlahBesar").textContent = jumlahBesar.toFixed(2);
+
+  // Gred
+  const gredInfo = kiraGred(jumlahBesar);
+  document.getElementById("gredAkhir").textContent = gredInfo.gred;
+  const statusEl = document.getElementById("statusLulus");
+  statusEl.textContent = gredInfo.gred === "-" ? "" :
+    (["A","A-","B+","B"].includes(gredInfo.gred) ? "✅ LULUS (Gred B ke atas)" : "❌ TIDAK LULUS (Gred lulus adalah B ke atas)");
+  statusEl.style.color = ["A","A-","B+","B"].includes(gredInfo.gred) ? "#2b7a2b" : "#b03030";
+}
+
+function kiraGred(markah) {
+  const jadual = [
+    [80,100,"A"], [75,79.99,"A-"], [70,74.99,"B+"], [65,69.99,"B"],
+    [60,64.99,"B-"], [55,59.99,"C+"], [50,54.99,"C"], [45,49.99,"C-"],
+    [40,44.99,"D+"], [35,39.99,"D"], [0,34.99,"F"]
+  ];
+  for (const [lo,hi,g] of jadual) {
+    if (markah >= lo && markah <= hi) return { gred: g };
+  }
+  return { gred: "-" };
+}
+
+// ====================== SIMPAN / MUAT DATA ======================
+function simpanData() {
+  const data = {
+    maklumat: {
+      nama: document.getElementById("nama").value,
+      ic: document.getElementById("ic").value,
+      matrik: document.getElementById("matrik").value,
+      program: document.getElementById("program").value,
+      kodProgram: document.getElementById("kodProgram").value,
+      penyelia: document.getElementById("penyelia").value,
+      guruPembimbing: document.getElementById("guruPembimbing").value,
+      tarikh: document.getElementById("tarikh").value
+    },
+    skor: state.skor,
+    ulasanAkhir: document.getElementById("ulasanAkhir").value,
+    ttdNama: document.getElementById("ttdNama").value,
+    ttdJabatan: document.getElementById("ttdJabatan").value
+  };
+  const blob = new Blob([JSON.stringify(data, null, 2)], {type: "application/json"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  const namaFail = (data.maklumat.nama || "portfolio").replace(/[^a-z0-9]/gi,"_");
+  a.download = `Penilaian_KPR3072_${namaFail}.json`;
+  a.click();
+}
+
+function muatData(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(evt) {
+    const data = JSON.parse(evt.target.result);
+    document.getElementById("nama").value = data.maklumat?.nama || "";
+    document.getElementById("ic").value = data.maklumat?.ic || "";
+    document.getElementById("matrik").value = data.maklumat?.matrik || "";
+    document.getElementById("program").value = data.maklumat?.program || "";
+    document.getElementById("kodProgram").value = data.maklumat?.kodProgram || "";
+    document.getElementById("penyelia").value = data.maklumat?.penyelia || "";
+    document.getElementById("guruPembimbing").value = data.maklumat?.guruPembimbing || "";
+    document.getElementById("tarikh").value = data.maklumat?.tarikh || "";
+    document.getElementById("ulasanAkhir").value = data.ulasanAkhir || "";
+    document.getElementById("ttdNama").value = data.ttdNama || "";
+    document.getElementById("ttdJabatan").value = data.ttdJabatan || "";
+    state.skor = data.skor || {};
+
+    // Refresh buttons visual
+    Object.keys(state.skor).forEach(key => {
+      const val = state.skor[key];
+      const container = document.getElementById(`btns_${key}`);
+      if (container) {
+        [...container.children].forEach(b => {
+          b.classList.toggle("active", b.dataset.val == val);
+        });
+        container.classList.add("dipilih");
+      } else {
+        const parts = key.split("_");
+        const inputEl = document.getElementById(`input_${key}`);
+        if (inputEl) inputEl.value = val;
+      }
+    });
+    hitungSemua();
+  };
+  reader.readAsText(file);
+}
+
+// ====================== INIT ======================
+renderChecklist();
+renderKomponen();
+hitungSemua();
+</script>
+</body>
+</html>
