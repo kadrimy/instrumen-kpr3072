@@ -85,19 +85,66 @@
   .item-label { font-size: 13px; flex: 1; }
   .scale-btns { display: flex; gap: 4px; }
   .scale-btns button {
-    border: 1px solid #c0392b;
-    background: #e74c3c;
-    color: #fff;
+    border: 1px solid #b7950b;
+    background: #f1c40f;
+    color: #23291f;
     padding: 3px 10px;
     border-radius: 4px;
     cursor: pointer;
     font-size: 12px;
   }
-  .scale-btns button.active { background: var(--hijau); color: #fff; border-color: var(--hijau-tua); }
-  .scale-btns.dipilih button:not(.active) { background: #fff; color: #333; border-color: #bbb; }
+  .scale-btns button.active { background: var(--hijau); color: #23291f; border-color: var(--hijau-tua); }
+  .scale-btns button[data-val="TIADA"].active,
+  .scale-btns button[data-label="TIADA"].active { background: #e74c3c; color: #23291f; border-color: #c0392b; }
+  .scale-btns.dipilih button:not(.active) { background: #fff; color: #999; border-color: #bbb; }
   .jumlah-row { background: var(--kuning); font-weight: 600; padding: 6px 10px; font-size: 13px; display: flex; justify-content: space-between; margin-top: 4px; border-radius: 4px; }
   .komponen-markah { background: var(--hijau-muda); font-weight: 700; padding: 8px 10px; font-size: 13px; display: flex; justify-content: space-between; border-radius: 0 0 6px 6px; border: 1px solid var(--border); border-top: none; }
   .minggu-header { background: #2f5c2f; color: #fff; padding: 8px 12px; font-weight: 700; font-size: 14px; border-radius: 6px; margin: 20px 0 6px 0; }
+  .minggu1-blue .card,
+  .minggu1-blue table,
+  .minggu1-blue th,
+  .minggu1-blue td { background: #eaf3fb; }
+  .minggu1-blue .komponen-title { background: #aed6f1; color: var(--teks); }
+  .minggu1-blue .jumlah-row,
+  .minggu1-blue .komponen-markah { background: revert; }
+  .minggu1-blue .jumlah-row { background: var(--kuning); }
+  .minggu1-blue .komponen-markah { background: var(--hijau-muda); }
+  .minggu2-purple .card,
+  .minggu2-purple table,
+  .minggu2-purple th,
+  .minggu2-purple td { background: #f4ecf7; }
+  .minggu2-purple .komponen-title { background: #d2b4de; color: var(--teks); }
+  .minggu2-purple .jumlah-row,
+  .minggu2-purple .komponen-markah { background: revert; }
+  .minggu2-purple .jumlah-row { background: var(--kuning); }
+  .minggu2-purple .komponen-markah { background: var(--hijau-muda); }
+  .minggu3-magenta .card,
+  .minggu3-magenta table,
+  .minggu3-magenta th,
+  .minggu3-magenta td { background: #fce4ec; }
+  .minggu3-magenta .komponen-title { background: #f3b6d3; color: var(--teks); }
+  .minggu3-magenta .jumlah-row,
+  .minggu3-magenta .komponen-markah { background: revert; }
+  .minggu3-magenta .jumlah-row { background: var(--kuning); }
+  .minggu3-magenta .komponen-markah { background: var(--hijau-muda); }
+  .minggu4-brown .card,
+  .minggu4-brown table,
+  .minggu4-brown th,
+  .minggu4-brown td { background: #f5ede3; }
+  .minggu4-brown .komponen-title { background: #d2b48c; color: var(--teks); }
+  .minggu4-brown .jumlah-row,
+  .minggu4-brown .komponen-markah { background: revert; }
+  .minggu4-brown .jumlah-row { background: var(--kuning); }
+  .minggu4-brown .komponen-markah { background: var(--hijau-muda); }
+  .minggu14-peach .card,
+  .minggu14-peach table,
+  .minggu14-peach th,
+  .minggu14-peach td { background: #fdf2e9; }
+  .minggu14-peach .komponen-title { background: #f8c9a0; color: var(--teks); }
+  .minggu14-peach .jumlah-row,
+  .minggu14-peach .komponen-markah { background: revert; }
+  .minggu14-peach .jumlah-row { background: var(--kuning); }
+  .minggu14-peach .komponen-markah { background: var(--hijau-muda); }
   .keseluruhan-minggu { background: #fff7cc; border: 1px solid #e0d27a; padding: 8px 12px; font-weight: 700; margin-top: 8px; border-radius: 4px; text-align: right; }
   textarea { width: 100%; min-height: 60px; padding: 6px; border: 1px solid #ccc; border-radius: 4px; font-family: inherit; font-size: 13px; }
   .rumusan-table th, .rumusan-table td { font-size: 13px; }
@@ -124,6 +171,8 @@
     .card { break-inside: avoid; border: 1px solid #999; }
   }
   .subtle { font-size: 12px; color: #666; margin-top: 2px; }
+  .ulasan-lines { margin-top: 6px; }
+  .ulasan-line { border-bottom: 1px solid #999; height: 30px; }
   .autofill-status { font-size: 13px; margin-top: 8px; padding: 8px 10px; border-radius: 6px; display: none; }
   .autofill-status.loading { display: block; background: #fff7cc; color: #6b5b00; }
   .autofill-status.success { display: block; background: #e3f3e3; color: #1f5c1f; }
@@ -143,7 +192,25 @@
   <!-- MAKLUMAT INSTRUMEN -->
   <div class="card">
     <h2>Maklumat Instrumen Berasaskan Web</h2>
-    <p style="font-size:13px;line-height:1.6;margin:0">Kalkulator dan e-Borang ini dibangunkan oleh Shahrul Kadri Ayop dan Izan Roshawaty Mustapa dari Jabatan Fizik, FSM UPSI berdasarkan Instrumen Penilaian dan Pemarkahan KPR3072. Inisiatif tanpa geran dan tanpa elaun ^_^ . Namun, diharapkan dapat berimpak.</p>
+    <p style="font-size:13px;line-height:1.6;margin:0">e-Borang ini dibangunkan oleh Shahrul Kadri Ayop, Izan Roshawaty Mustapa, Nor Nafizah binti Mohd Noor dan Nor Azian Aini binti Mat dari FSM UPSI berdasarkan Instrumen Penilaian dan Pemarkahan KPR3072.<br>
+    Inisiatif tanpa geran dan tanpa elaun ^_^ .<br>
+    Namun, diharapkan dapat berimpak dan memudahkan beban rakan-rakan.</p>
+
+    <p style="font-size:13px;font-weight:600;margin:14px 0 4px 0">Panduan penggunaan.</p>
+    <ol style="font-size:13px;line-height:1.6;margin:0;padding-left:20px">
+      <li>Klik butang oren untuk menilai item.</li>
+      <li>Markah akan dikira secara automatik secara komponen dan keseluruhan.</li>
+      <li>Markah yang berwarna oren menunjukkan penilaian item belum dilakukan.</li>
+      <li>Rumusan Markah Keseluruhan di akhir borang sedia untuk dimasukkan ke dalam sistem eMarks.</li>
+      <li>Klik &ldquo;Cetak/Simpan sebagai PDF&rdquo; untuk rekod.</li>
+      <li>Klik &ldquo;Simpan Data (fail .json)&rdquo; untuk simpan meta-data.</li>
+      <li>Klik &ldquo;Muat Semula Data&rdquo; untuk muat turun fail .json dan data boleh disunting semula.</li>
+    </ol>
+  </div>
+
+  <div class="btn-row no-print">
+    <button class="btn secondary" onclick="document.getElementById('loadInput').click()">📂 Muat Semula Data</button>
+    <input type="file" id="loadInput" accept=".json" style="display:none" onchange="muatData(event)">
   </div>
 
   <!-- MAKLUMAT PELAJAR -->
@@ -151,22 +218,28 @@
     <h2>Maklumat Guru Perantis</h2>
     <div class="info-grid">
       <div><label>Nama Guru Perantis</label><input id="nama" type="text"></div>
-      <div><label>No. Kad Pengenalan</label><input id="ic" type="text"></div>
+      <div><label>Kod Semester (cth: A261)</label><input id="ic" type="text" placeholder="A261"></div>
       <div><label>No. Matrik</label><input id="matrik" type="text"></div>
       <div><label>Program Pengajian</label><input id="program" type="text"></div>
       <div><label>Kod Program</label><input id="kodProgram" type="text"></div>
-      <div><label>Tarikh Perantis Guru</label><input id="tarikh" type="date"></div>
+      <div><label>Tarikh Mula Perantis Guru</label><input id="tarikh" type="date"></div>
       <div><label>Nama Pensyarah Penyelia</label><input id="penyelia" type="text"></div>
       <div><label>Nama Guru Pembimbing</label><input id="guruPembimbing" type="text"></div>
+      <div style="grid-column: 1 / -1"><label>Nama Institusi / Sekolah</label><input id="institusi" type="text"></div>
     </div>
   </div>
 
   <!-- SENARAI SEMAK KELENGKAPAN -->
   <div class="card">
-    <h2 style="text-transform:uppercase">1. Senarai Semak Kelengkapan Portfolio</h2>
+    <h2 style="text-transform:uppercase">SENARAI SEMAK PENILAIAN PORTFILIO KPR3072 PERANTIS GURU UNTUK PENSYARAH PENYELIA</h2>
     <table>
       <tbody id="checklistBody"></tbody>
     </table>
+
+    <div style="margin-top:24px">
+      <label style="font-size:12px;font-weight:600">ULASAN PENSYARAH PENYELIA</label>
+      <textarea id="ulasan_checklist" style="min-height:60px" onchange="hitungSemua()"></textarea>
+    </div>
   </div>
 
   <!-- KOMPONEN PEMARKAHAN -->
@@ -187,7 +260,7 @@
   </div>
 
   <div class="card">
-    <h2>Ulasan Keseluruhan Pensyarah Penyelia</h2>
+    <h2>Ulasan Penyarah Penyelia (Rumusan)</h2>
     <textarea id="ulasanAkhir" placeholder="Tulis ulasan keseluruhan di sini..."></textarea>
     <div class="info-grid" style="margin-top:12px">
       <div><label>Tandatangan (Nama)</label><input id="ttdNama" type="text"></div>
@@ -198,8 +271,6 @@
   <div class="btn-row no-print">
     <button class="btn" onclick="window.print()">🖨️ Cetak / Simpan sebagai PDF</button>
     <button class="btn secondary" onclick="simpanData()">💾 Simpan Data (fail .json)</button>
-    <button class="btn secondary" onclick="document.getElementById('loadInput').click()">📂 Muat Semula Data</button>
-    <input type="file" id="loadInput" accept=".json" style="display:none" onchange="muatData(event)">
   </div>
 
 </div>
@@ -244,8 +315,12 @@ const komponenData = [
         items: ["Nama Sekolah","Alamat Sekolah","No. Tel. Sekolah","Alamat e-mel/web sekolah","Lokasi","Visi Sekolah","Misi Sekolah","Logo Sekolah","Gred Sekolah","Jenis Sekolah","Nama Pengetua","Nama GPK1","Nama GPK HEM","Nama GPK Kokurikulum","Nama Penyelia Petang","Bilangan Guru","Bilangan Guru Cemerlang","Kelayakan Profesional Guru","Bilangan Pembantu Murid","Bilangan Staf Sokongan","Bilangan Kelas","Purata Saiz Kelas","Jumlah Murid","Prasarana","Sejarah Sekolah"]
       },
       {
-        id: "A2", tajuk: "2. Pengurusan Organisasi (pilih satu: Pentadbiran Kurikulum atau Panitia Mata Pelajaran)", jenis: "binari", maxJumlah: 10,
-        items: ["Organisasi Kurikulum / Nama Panitia","Jawatankuasa Kurikulum / Ahli Panitia","Pakej Mata Pelajaran / Mesyuarat Panitia","Masa Pengajaran dan Penjadualan / Takwim dan Aktiviti Panitia","Sumber Pengajaran / Peruntukan Kewangan","Pentaksiran Berasaskan Sekolah / Rancangan Pengajaran Tahunan","Kepakaran Guru / Standard Penulisan RPH Sekolah","Kursus dan Latihan Mata Pelajaran / Penilaian Berasaskan Sekolah","LADAP / Sumber Pengajaran dan BBM","Penyeliaan dan Pencerapan / Pelaporan Panitia"]
+        id: "A2", tajuk: "2. Pengurusan Organisasi: (pilih satu sahaja – a atau b)", jenis: "binari", maxJumlah: 10,
+        subgrup: [
+          { label: "a. Pentadbiran Kurikulum", items: ["Organisasi Kurikulum","Jawatankuasa Kurikulum","Pakej Mata Pelajaran","Masa Pengajaran dan Penjadualan","Sumber Pengajaran","Pentaksiran Berasaskan Sekolah","Kepakaran Guru","Kursus dan Latihan Mata Pelajaran","LADAP","Penyeliaan dan Pencerapan"] },
+          { label: "b. Panitia Mata Pelajaran", items: ["Nama Panitia","Ahli Panitia","Mesyuarat Panitia","Takwim dan Aktiviti Panitia","Peruntukan Kewangan","Rancangan Pengajaran Tahunan","Standard Penulisan RPH Sekolah","Penilaian Berasaskan Sekolah","Sumber Pengajaran dan BBM","Pelaporan Panitia"] }
+        ],
+        items: ["Organisasi Kurikulum","Jawatankuasa Kurikulum","Pakej Mata Pelajaran","Masa Pengajaran dan Penjadualan","Sumber Pengajaran","Pentaksiran Berasaskan Sekolah","Kepakaran Guru","Kursus dan Latihan Mata Pelajaran","LADAP","Penyeliaan dan Pencerapan","Nama Panitia","Ahli Panitia","Mesyuarat Panitia","Takwim dan Aktiviti Panitia","Peruntukan Kewangan","Rancangan Pengajaran Tahunan","Standard Penulisan RPH Sekolah","Penilaian Berasaskan Sekolah","Sumber Pengajaran dan BBM","Pelaporan Panitia"]
       }
     ]
   },
@@ -253,7 +328,11 @@ const komponenData = [
     id: "B", minggu: 1, clo: "CLO1", tajuk: "B: REFLEKSI (10%)", maxMarkah: 10,
     formula: "(B1 + B2 + B3) ÷ 3",
     bahagian: [
-      { id: "B1", tajuk: "1. Persekitaran dan Budaya Sekolah", jenis: "binari", maxJumlah: 5,
+      { id: "B1", tajuk: "1. Persekitaran dan Budaya Sekolah:", jenis: "binari", maxJumlah: 5,
+        subgrup: [
+          { label: "a. Persekitaran.", items: ["Fizikal (cth: reka bentuk bilik darjah)","Psikososial (cth: kondusif, selamat)"] },
+          { label: "b. Budaya", items: ["Material (cth: pakaian pelajar/guru, majlis/sambutan)","Non-material (cth: adab)","Niche/bidang kebitaraan (cth: teknologi, sukan, keagamaan)"] }
+        ],
         items: ["Fizikal (cth: reka bentuk bilik darjah)","Psikososial (cth: kondusif, selamat)","Material (cth: pakaian pelajar/guru, majlis/sambutan)","Non-material (cth: adab)","Niche/bidang kebitaraan (cth: teknologi, sukan, keagamaan)"] },
       { id: "B2", tajuk: "2. Bilik Darjah dan Murid", jenis: "binari", maxJumlah: 5,
         items: ["Pengurusan bilik darjah","Penggunaan teknologi dalam PdPc","Pentaksiran yang dilaksanakan","Motivasi murid","Rumusan – kaitkan a hingga d dengan Falsafah Pendidikan Kebangsaan"] },
@@ -267,8 +346,12 @@ const komponenData = [
     bahagian: [
       { id: "C1", tajuk: "1. Laporan Pemerhatian PdPc GP", jenis: "binari", maxJumlah: 5,
         items: ["Permulaan pengajaran","Perkembangan pengajaran","Penutup pengajaran","Penerapan kemahiran insaniah","Etika profesionalisme keguruan"] },
-      { id: "C2", tajuk: "2. Cadangan Penambahbaikan", jenis: "binari", maxJumlah: 5,
-        items: ["Refleksi: Aspek yang telah dipelajari","Refleksi: Aspek yang boleh diteladani","Cadangan: Permulaan pengajaran","Cadangan: Perkembangan pengajaran","Cadangan: Penutup pengajaran"] },
+      { id: "C2", tajuk: "2. Cadangan Penambahbaikan:", jenis: "binari", maxJumlah: 5,
+        subgrup: [
+          { label: "a. Refleksi:", items: ["Aspek yang telah dipelajari","Aspek yang boleh diteladani"] },
+          { label: "b. Cadangan penambahbaikan:", items: ["Permulaan pengajaran","Perkembangan pengajaran","Penutup pengajaran"] }
+        ],
+        items: ["Aspek yang telah dipelajari","Aspek yang boleh diteladani","Permulaan pengajaran","Perkembangan pengajaran","Penutup pengajaran"] },
       { id: "C3", tajuk: "Aspek analitikal dan teknikal", jenis: "skala5", maxJumlah: 20,
         items: ["Kebolehan analitikal","Kejelasan bahasa","Ketepatan ejaan dan tanda baca","Kekemasan"] }
     ]
@@ -279,7 +362,7 @@ const komponenData = [
     bahagian: [
       { id: "D1", tajuk: "1. RPH (PdPc Bersama)", jenis: "binari", maxJumlah: 5,
         items: ["Hasil pembelajaran","Isi pembelajaran","Strategi pengajaran dan pembelajaran","Sumber dan bahan bantu mengajar","Pentaksiran"] },
-      { id: "D2", tajuk: "Aspek teknikal", jenis: "skala5", maxJumlah: 15,
+      { id: "D2", tajuk: "Aspek teknikal", jenis: "skala5nt", maxJumlah: 15,
         items: ["Kejelasan bahasa","Ketepatan ejaan dan tanda baca","Kekemasan"] }
     ]
   },
@@ -289,7 +372,7 @@ const komponenData = [
     bahagian: [
       { id: "E1", tajuk: "1. RPH (PdPc Individu)", jenis: "binari", maxJumlah: 5,
         items: ["Hasil pembelajaran","Isi pembelajaran","Strategi pengajaran dan pembelajaran","Sumber dan bahan bantu mengajar","Pentaksiran"] },
-      { id: "E2", tajuk: "Aspek teknikal", jenis: "skala5", maxJumlah: 10,
+      { id: "E2", tajuk: "Aspek teknikal", jenis: "skala5nt", maxJumlah: 10,
         items: ["Kejelasan bahasa","Kekemasan"] }
     ]
   },
@@ -299,7 +382,10 @@ const komponenData = [
     bahagian: [
       { id: "F1", tajuk: "1. Rancangan Pengajaran Harian", jenis: "binari2", maxJumlah: 2,
         items: ["Melampirkan RPH yang telah disediakan pada Minggu 2"] },
-      { id: "F2", tajuk: "2. Penulisan Refleksi", jenis: "skala3", maxJumlah: 8,
+      { id: "F2", tajuk: "2. Penulisan Refleksi:", jenis: "skala3", maxJumlah: 8,
+        subgrup: [
+          { label: "a. Refleksi", items: ["Isu/perkara yang difokuskan","Kekuatan Guru Perantis","Kelemahan Guru Perantis","Cadangan penambahbaikan"] }
+        ],
         items: ["Isu/perkara yang difokuskan","Kekuatan Guru Perantis","Kelemahan Guru Perantis","Cadangan penambahbaikan"] },
       { id: "F3", tajuk: "Aspek analitikal dan teknikal", jenis: "skala5", maxJumlah: 20,
         items: ["Kebolehan analitikal","Kejelasan bahasa","Ketepatan ejaan dan tanda baca","Kekemasan"] }
@@ -311,7 +397,10 @@ const komponenData = [
     bahagian: [
       { id: "G1", tajuk: "1. Rancangan Pengajaran Harian", jenis: "binari2", maxJumlah: 2,
         items: ["Melampirkan RPH yang telah disediakan pada Minggu 2"] },
-      { id: "G2", tajuk: "2. Penulisan Refleksi", jenis: "skala3", maxJumlah: 8,
+      { id: "G2", tajuk: "2. Penulisan Refleksi:", jenis: "skala3", maxJumlah: 8,
+        subgrup: [
+          { label: "a. Refleksi", items: ["Isu/perkara yang difokuskan","Kekuatan Guru Perantis","Kelemahan Guru Perantis","Cadangan penambahbaikan"] }
+        ],
         items: ["Isu/perkara yang difokuskan","Kekuatan Guru Perantis","Kelemahan Guru Perantis","Cadangan penambahbaikan"] },
       { id: "G3", tajuk: "Aspek analitikal dan teknikal", jenis: "skala5", maxJumlah: 20,
         items: ["Kebolehan analitikal","Kejelasan bahasa","Ketepatan ejaan dan tanda baca","Kekemasan"] }
@@ -398,15 +487,19 @@ function renderChecklist() {
 
   // ---- Header umum jadual ----
   html += `<tr>
-      <th style="background:var(--hijau);color:#fff;font-size:12px;padding:6px 8px" colspan="3">Perkara / Item</th>
+      <th style="background:var(--hijau);color:#fff;font-size:12px;padding:6px 8px" colspan="2">Perkara</th>
+      <th style="background:var(--hijau);color:#fff;font-size:12px;padding:6px 8px">Item</th>
       <th style="background:var(--hijau);color:#fff;font-size:12px;padding:6px 8px">Catatan</th>
     </tr>`;
 
-  // ---- Bahagian 1: Maklumat Pelajar ----
-  html += `<tr><td colspan="4" style="background:var(--hijau-muda);font-weight:700">${checklistMaklumatPelajar.group}</td></tr>`;
+  // ---- Bahagian 1: Maklumat Pelajar (PERKARA | ITEM | CATATAN) ----
   checklistMaklumatPelajar.items.forEach((item, ii) => {
     const key = `chk_mp_${ii}`;
-    html += `<tr><td colspan="3">${ii + 1}. ${item}</td>${checklistSelectCell(key)}</tr>`;
+    html += `<tr>`;
+    if (ii === 0) {
+      html += `<td rowspan="${checklistMaklumatPelajar.items.length}" colspan="2" style="font-weight:700;vertical-align:middle">${checklistMaklumatPelajar.group}</td>`;
+    }
+    html += `<td>${ii + 1}. ${item}</td>${checklistSelectCell(key)}</tr>`;
   });
 
   // ---- Bahagian 2: Tugasan (jadual bertingkat Minggu / Tugasan / Item, penomboran item bermula 1 setiap tugasan) ----
@@ -455,11 +548,14 @@ function renderChecklist() {
     </tr>`;
   html += tugasanRowsHtml;
 
-  // ---- Bahagian 3: Kehadiran ----
-  html += `<tr><td colspan="4" style="background:var(--hijau-muda);font-weight:700">${checklistKehadiran.group}</td></tr>`;
+  // ---- Bahagian 3: Kehadiran (PERKARA | ITEM | CATATAN) ----
   checklistKehadiran.items.forEach((item, ii) => {
     const key = `chk_kh_${ii}`;
-    html += `<tr><td colspan="3">${ii + 1}. ${item}</td>${checklistSelectCell(key)}</tr>`;
+    html += `<tr>`;
+    if (ii === 0) {
+      html += `<td rowspan="${checklistKehadiran.items.length}" colspan="2" style="font-weight:700;vertical-align:middle">${checklistKehadiran.group}</td>`;
+    }
+    html += `<td>${ii + 1}. ${item}</td>${checklistSelectCell(key)}</tr>`;
   });
 
   tbody.innerHTML = html;
@@ -475,15 +571,23 @@ function abjadKecil(idx) {
   return huruf[baki].repeat(kitaran + 1);
 }
 
-function skorButtons(compId, bahagianId, itemIdx, jenis) {
+// Pulangkan angka rumi kecil i, ii, iii ... untuk penomboran sub-sub-item
+function rumiKecil(idx) {
+  const rumi = ["i","ii","iii","iv","v","vi","vii","viii","ix","x","xi","xii","xiii","xiv","xv"];
+  return rumi[idx] || String(idx + 1);
+}
+
+function skorButtons(compId, bahagianId, itemIdx, jenis, centered) {
   let opsi;
   if (jenis === "binari") opsi = [["1","ADA"],["0","TIADA"]];
   else if (jenis === "binari2") opsi = [["2","ADA"],["0","TIADA"]];
   else if (jenis === "skala3") opsi = [["2","ADA>1"],["1","ADA=1"],["0","TIADA"]];
-  else if (jenis === "skala5") opsi = [["5","BAIK"],["4","SEDERHANA"],["3","LEMAH"]];
+  else if (jenis === "skala5") opsi = [["5","BAIK"],["4","SEDERHANA"],["3","LEMAH"],["0","TIADA"]];
+  else if (jenis === "skala5nt") opsi = [["5","BAIK"],["4","SEDERHANA"],["3","LEMAH"]];
   const key = `${compId}_${bahagianId}_${itemIdx}`;
-  return `<div class="scale-btns" id="btns_${key}">` +
-    opsi.map(([val,label]) => `<button data-val="${val}" onclick="setSkor('${compId}','${bahagianId}',${itemIdx},${val},this)">${label} (${val})</button>`).join("") +
+  const gaya = centered ? ` style="justify-content:center"` : "";
+  return `<div class="scale-btns" id="btns_${key}"${gaya}>` +
+    opsi.map(([val,label]) => `<button data-val="${val}" data-label="${label}" onclick="setSkor('${compId}','${bahagianId}',${itemIdx},${val},this)">${label} (${val})</button>`).join("") +
     `</div>`;
 }
 
@@ -502,10 +606,23 @@ function renderKomponen() {
   let html = "";
   let currentMinggu = null;
 
-  komponenData.forEach(comp => {
+  komponenData.forEach((comp, compIdx) => {
     if (comp.minggu !== currentMinggu) {
+      if (currentMinggu !== null) {
+        html += `<div class="card" style="padding-top:10px">
+          <label style="font-size:12px;font-weight:600">ULASAN PENSYARAH PENYELIA (TUGASAN MINGGU ${currentMinggu})</label>
+          <textarea id="ulasan_minggu_${currentMinggu}" style="min-height:60px" onchange="hitungSemua()"></textarea>
+        </div>`;
+        if (currentMinggu == 1 || currentMinggu == 2 || currentMinggu == 3 || currentMinggu == 4 || currentMinggu == "1–4") html += `</div>`; // tutup pembalut warna minggu
+      }
       currentMinggu = comp.minggu;
-      html += `<div class="minggu-header">TUGASAN MINGGU ${currentMinggu}</div>`;
+      const gayaHeader = currentMinggu == 1 ? ` style="background:#5dade2"` : currentMinggu == 2 ? ` style="background:#a569bd"` : currentMinggu == 3 ? ` style="background:#c2185b"` : currentMinggu == 4 ? ` style="background:#a9714a"` : currentMinggu == "1–4" ? ` style="background:#e59866"` : "";
+      html += `<div class="minggu-header"${gayaHeader}>TUGASAN MINGGU ${currentMinggu}</div>`;
+      if (currentMinggu == 1) html += `<div class="minggu1-blue" style="background:#eaf3fb;padding:12px;border-radius:8px">`;
+      if (currentMinggu == 2) html += `<div class="minggu2-purple" style="background:#f4ecf7;padding:12px;border-radius:8px">`;
+      if (currentMinggu == 3) html += `<div class="minggu3-magenta" style="background:#fce4ec;padding:12px;border-radius:8px">`;
+      if (currentMinggu == 4) html += `<div class="minggu4-brown" style="background:#f5ede3;padding:12px;border-radius:8px">`;
+      if (currentMinggu == "1–4") html += `<div class="minggu14-peach" style="background:#fdf2e9;padding:12px;border-radius:8px">`;
     }
     html += `<div class="card" style="padding-top:10px">`;
     html += `<div class="komponen-title">${comp.tajuk}</div>`;
@@ -517,6 +634,39 @@ function renderKomponen() {
         html += `<div class="item-row"><span class="item-label">${bah.items[0]}</span>
           <input type="number" min="0" max="${bah.maxJumlah}" step="0.01" id="input_${comp.id}_${bah.id}_0"
           style="width:80px;padding:4px" onchange="setInputTerus('${comp.id}','${bah.id}',0,this.value)"></div>`;
+      } else if (bah.subgrup && bah.subgrup.length === 2 && bah.subgrup[0].items.length === bah.subgrup[1].items.length) {
+        const [sgA, sgB] = bah.subgrup;
+        const n = sgA.items.length;
+        html += `<table style="margin-top:6px">
+          <tr>
+            <th colspan="2" style="background:var(--hijau-muda);color:var(--teks);text-align:left;padding:6px 8px">${sgA.label}</th>
+            <th style="background:var(--hijau-muda);color:var(--teks);text-align:left;padding:6px 8px">${sgB.label}</th>
+            <th style="background:var(--hijau-muda);color:var(--teks);text-align:left;padding:6px 8px">Catatan</th>
+          </tr>`;
+        for (let i = 0; i < n; i++) {
+          const idxA = i;
+          const idxB = n + i;
+          html += `<tr>
+            <td style="width:28px;vertical-align:top">${rumiKecil(i)}.</td>
+            <td><span class="item-label">${sgA.items[i]}</span></td>
+            <td><span class="item-label">${sgB.items[i]}</span></td>
+            <td style="text-align:center">${skorButtons(comp.id, bah.id, idxB, bah.jenis, true)}</td>
+          </tr>`;
+        }
+        html += `</table>`;
+      } else if (bah.subgrup) {
+        let flatIdx = 0;
+        bah.subgrup.forEach(sg => {
+          html += `<div style="margin:6px 0 2px 8px;font-weight:600;font-size:13px">${sg.label}</div>`;
+          sg.items.forEach((item, subIdx) => {
+            const idx = flatIdx;
+            html += `<div class="item-row" style="padding-left:24px">
+              <span class="item-label">${rumiKecil(subIdx)}. ${item}</span>
+              ${skorButtons(comp.id, bah.id, idx, bah.jenis)}
+            </div>`;
+            flatIdx++;
+          });
+        });
       } else {
         bah.items.forEach((item, idx) => {
           html += `<div class="item-row">
@@ -528,13 +678,22 @@ function renderKomponen() {
       html += `<div class="jumlah-row"><span>Jumlah (${bah.id})</span><span id="jumlah_${comp.id}_${bah.id}">0 / ${bah.maxJumlah}</span></div>`;
     });
 
-    html += `<div class="komponen-markah"><span>MARKAH KOMPONEN ${comp.id}: ${comp.formula}</span><span id="markah_komponen_${comp.id}">0.00 / ${comp.maxMarkah}</span></div>`;
+    const labelMarkah = comp.id === "I" ? `MARKAH KESELURUHAN TUGASAN: ${comp.id} =` : `MARKAH KOMPONEN ${comp.id}: ${comp.formula}`;
+    html += `<div class="komponen-markah"><span>${labelMarkah}</span><span id="markah_komponen_${comp.id}">0.00 / ${comp.maxMarkah}</span></div>`;
 
-    html += `<div style="margin-top:10px"><label style="font-size:12px;font-weight:600">Komen / Ulasan Komponen ${comp.id}:</label>
+    html += `<div style="margin-top:10px"><label style="font-size:12px;font-weight:600">Komen Komponen ${comp.id}:</label>
       <textarea id="komen_${comp.id}" style="min-height:40px" onchange="hitungSemua()"></textarea></div>`;
 
     html += `</div>`;
   });
+
+  if (currentMinggu !== null) {
+    html += `<div class="card" style="padding-top:10px">
+      <label style="font-size:12px;font-weight:600">ULASAN PENSYARAH PENYELIA (TUGASAN MINGGU ${currentMinggu})</label>
+      <textarea id="ulasan_minggu_${currentMinggu}" style="min-height:60px" onchange="hitungSemua()"></textarea>
+    </div>`;
+    if (currentMinggu == 1 || currentMinggu == 2 || currentMinggu == 3 || currentMinggu == 4 || currentMinggu == "1–4") html += `</div>`; // tutup pembalut warna minggu terakhir
+  }
 
   container.innerHTML = html;
 }
