@@ -183,6 +183,7 @@
 <body>
 
 <header>
+  <p style="margin:0 0 4px 0;font-size:14px;font-weight:600;opacity:.95">PGWeb eKalkulator</p>
   <h1>Instrumen Penilaian dan Pemarkahan KPR3072 Perantis Guru</h1>
   <p>Universiti Pendidikan Sultan Idris — Jabatan Pengajian Pendidikan, Fakulti Pembangunan Manusia (mengikut instrumen rasmi 2025)</p>
 </header>
@@ -191,21 +192,22 @@
 
   <!-- MAKLUMAT INSTRUMEN -->
   <div class="card">
-    <h2>Maklumat Instrumen Berasaskan Web</h2>
-    <p style="font-size:13px;line-height:1.6;margin:0">e-Borang ini dibangunkan oleh Shahrul Kadri Ayop, Izan Roshawaty Mustapa, Nor Nafizah binti Mohd Noor dan Nor Azian Aini binti Mat dari FSM UPSI berdasarkan Instrumen Penilaian dan Pemarkahan KPR3072.<br>
+    <h2>Info PGWeb eKalkulator</h2>
+    <p style="font-size:13px;line-height:1.6;margin:0">e-Borang ini dibangunkan oleh Shahrul Kadri Ayop, Izan Roshawaty Mustapa, Nor Nafizah Mohd Noor dan Nor Azian Aini Mat dari FSM UPSI berdasarkan Instrumen Penilaian dan Pemarkahan KPR3072.<br>
     Inisiatif tanpa geran dan tanpa elaun ^_^ .<br>
     Namun, diharapkan dapat berimpak dan memudahkan beban rakan-rakan.</p>
 
     <p style="font-size:13px;font-weight:600;margin:14px 0 4px 0">Panduan penggunaan.</p>
     <ol style="font-size:13px;line-height:1.6;margin:0;padding-left:20px">
-      <li>Klik butang oren untuk menilai item.</li>
-      <li>Markah akan dikira secara automatik secara komponen dan keseluruhan.</li>
-      <li>Markah yang berwarna oren menunjukkan penilaian item belum dilakukan.</li>
+      <li>Klik butang jingga untuk menilai item.</li>
+      <li>Markah akan dikira secara automatik mengikut komponen dan keseluruhan.</li>
+      <li>Markah yang berwarna jingga menunjukkan penilaian item belum dilakukan.</li>
       <li>Rumusan Markah Keseluruhan di akhir borang sedia untuk dimasukkan ke dalam sistem eMarks.</li>
       <li>Klik &ldquo;Cetak/Simpan sebagai PDF&rdquo; untuk rekod.</li>
-      <li>Klik &ldquo;Simpan Data (fail .json)&rdquo; untuk simpan meta-data.</li>
+      <li>Klik &ldquo;Simpan Data (fail .json)&rdquo; untuk simpan metadata.</li>
       <li>Klik &ldquo;Muat Semula Data&rdquo; untuk muat turun fail .json dan data boleh disunting semula.</li>
     </ol>
+    <p style="font-size:12px;font-style:italic;color:#c0392b;margin-top:12px">Penafian: PGWeb eKalkulator ini adalah satu inisiatif alternatif bagi membantu pengiraan markah KPR3072 Perantis Guru. Penggunaannya adalah sama sekali tidak diwajibkan. Segala risiko yang mungkin timbul daripada penggunaan sistem ini adalah di bawah tanggungjawab pengguna sepenuhnya.</p>
   </div>
 
   <div class="btn-row no-print">
@@ -469,6 +471,8 @@ function checklistSelectCell(key) {
       <div class="scale-btns" id="btns_${key}" style="justify-content:center">
         <button data-val="ADA" onclick="setChecklistStatus('${key}','ADA',this)">ADA</button>
         <button data-val="TIADA" onclick="setChecklistStatus('${key}','TIADA',this)">TIADA</button>
+        <input type="text" id="catatan_${key}" placeholder="Catatan"
+          style="width:80px;padding:3px 6px;font-size:12px;border:1px solid #c0392b;border-radius:4px">
       </div>
     </td>`;
 }
@@ -582,12 +586,16 @@ function skorButtons(compId, bahagianId, itemIdx, jenis, centered) {
   if (jenis === "binari") opsi = [["1","ADA"],["0","TIADA"]];
   else if (jenis === "binari2") opsi = [["2","ADA"],["0","TIADA"]];
   else if (jenis === "skala3") opsi = [["2","ADA>1"],["1","ADA=1"],["0","TIADA"]];
-  else if (jenis === "skala5") opsi = [["5","BAIK"],["4","SEDERHANA"],["3","LEMAH"],["0","TIADA"]];
+  else if (jenis === "skala5") opsi = [["5","BAIK"],["4","SEDERHANA"],["3","LEMAH"]];
   else if (jenis === "skala5nt") opsi = [["5","BAIK"],["4","SEDERHANA"],["3","LEMAH"]];
   const key = `${compId}_${bahagianId}_${itemIdx}`;
   const gaya = centered ? ` style="justify-content:center"` : "";
+  const adaTiada = opsi.some(([,label]) => label === "TIADA");
+  const ruangCatatan = adaTiada ? `<input type="text" id="catatan_${key}" placeholder="Catatan"
+    style="width:80px;padding:3px 6px;font-size:12px;border:1px solid #c0392b;border-radius:4px" onchange="hitungSemua()">` : "";
   return `<div class="scale-btns" id="btns_${key}"${gaya}>` +
     opsi.map(([val,label]) => `<button data-val="${val}" data-label="${label}" onclick="setSkor('${compId}','${bahagianId}',${itemIdx},${val},this)">${label} (${val})</button>`).join("") +
+    ruangCatatan +
     `</div>`;
 }
 
